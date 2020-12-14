@@ -1,7 +1,6 @@
 <ion-app>
-  <ion-split-pane>
-
+  <ion-split-pane *ngIf="isAuthenticated">
+    <app-navigation-component [navigationElements]="appPages"></app-navigation-component>
   </ion-split-pane>
-  <ion-router-outlet name="main"></ion-router-outlet>
-  <ion-router-outlet name="authentication"></ion-router-outlet>
+  <ion-router-outlet></ion-router-outlet>
 </ion-app>

@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpHandler, HttpInterceptor, HttpRequest} from "@angular/common/http";
 import {selectAuthToken} from "../store/selectors/auth.selectors";
-import {State as AuthState} from "../store/reducers/auth.reducers";
+import { AuthState} from "../store/state/auth.state";
 import {catchError} from "rxjs/operators";
 import {throwError} from "rxjs";
 import {Router} from "@angular/router";

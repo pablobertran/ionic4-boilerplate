@@ -2,6 +2,7 @@ import {NgModule} from "@angular/core";
 
 @NgModule({
   declarations: [],
-  providers: [],
+  providers: [
+  ],
 })
 export class CoreModule {}

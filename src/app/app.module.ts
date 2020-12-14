@@ -9,23 +9,21 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import {AuthModule} from "./modules/auth/auth.module";
-import {AuthInterceptor} from "./modules/auth/guards/auth.interceptor";
-import {HTTP_INTERCEPTORS} from "@angular/common/http";
+import {CommonModule} from "./modules/common/common.module";
 
 @NgModule({
   declarations: [AppComponent],
-  entryComponents: [],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
     AuthModule,
+    CommonModule,
   ],
   providers: [
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
   ],
   bootstrap: [AppComponent]
 })

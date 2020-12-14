@@ -1,27 +1,22 @@
-import {User} from "../../models/user.model";
-import {AuthActions, AuthActionTypes} from "../actions/auth.actions";
+import {AuthActionTypes} from "../actions/auth.actions";
+import {AuthState} from "../state/auth.state";
+import {Action} from "../../../core/models/action.model";
 
-export interface State {
-  isAuthenticated: boolean;
-  user: User | null;
-  errorMessage: string | null;
-}
-
-export const initialState: State = {
+export const initialState: AuthState = {
   isAuthenticated: false,
   user: null,
   errorMessage: null
 };
 
-export function reducer(state = initialState, action: AuthActions) {
+// TODO -> Review action strong typing
+export function reducer(state = initialState, action: Action): AuthState {
   switch(action.type) {
     case AuthActionTypes.LOGIN_SUCCESS: {
       return {
         ...state,
         isAuthenticated: true,
         user: {
-          token: action.payload.token,
-          email: action.payload.email,
+          ...action.payload
         },
         errorMessage: null
       }

@@ -1,14 +1,13 @@
 import {Injectable} from "@angular/core";
 import {AuthRequestInterface} from "./auth.request.interface";
 import {HttpClient} from "@angular/common/http";
-import {ConfigurationProvider} from "../../../providers/configuration.provider";
+import {environment} from "../../../../environments/environment";
 
 @Injectable()
 export class AuthRequest implements AuthRequestInterface{
   baseURL: string = '';
-  constructor(private http: HttpClient,
-              private configProvider: ConfigurationProvider) {
-    const baseUrl = this.configProvider.getApiUrl();
+  constructor(private http: HttpClient) {
+    const baseUrl = environment.API.url;
     this.baseURL = `${baseUrl}/auth/`;
   }
 

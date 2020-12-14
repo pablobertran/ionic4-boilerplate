@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component, Input} from "@angular/core";
 
 @Component({
   selector: 'app-navigation-component',
@@ -6,6 +6,9 @@ import {Component} from "@angular/core";
 })
 export class NavigationComponent {
   selectedIndex: number = 0;
-  appPages: any[] = [];
-  labels: string[] = [];
+  @Input('navigationElements') appPages: any[] = [];
+  @Input() labels: string[] = [];
+
+  constructor() {
+  }
 }

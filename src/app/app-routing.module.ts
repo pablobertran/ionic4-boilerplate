@@ -1,27 +1,30 @@
-import { NgModule } from '@angular/core';
-import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
+import {AuthGuard} from "./modules/auth/guards/auth.guard";
 
 const routes: Routes = [
-  {path: '', redirectTo: 'auth/login', pathMatch: 'full', outlet: 'authentication'},
-  {path: 'auth', loadChildren: () => import('./pages/authentication'), pathMatch: 'full'},
-
-  {path: 'dashboard', pathMatch: 'full'}, //LoadChildren -> DashboardPage
+  {
+    path: 'auth',
+    loadChildren: () => import('./pages/authentication/authentication.module').then(m => m.AuthenticationModule),
+  },
 
   {
-    path: '',
-    redirectTo: 'folder/Inbox',
-    pathMatch: 'full'
+    path: 'dashboard',
+    loadChildren: () => import('./pages/dashboard/dashboard-page.module').then(m => m.DashboardPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'folder/:id',
-    loadChildren: () => import('./modules/folder/folder.module').then(m => m.FolderPageModule)
-  }
+    loadChildren: () => import('./modules/folder/folder.module').then(m => m.FolderPageModule),
+  },
+  {path: '', redirectTo: 'auth', pathMatch: 'full'},
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, {preloadingStrategy: PreloadAllModules}),
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {
+}

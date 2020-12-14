@@ -9,6 +9,10 @@ import {RouterModule} from "@angular/router";
     HeaderComponent,
     NavigationComponent,
   ],
+  exports: [
+    NavigationComponent,
+    HeaderComponent
+  ],
   imports: [
     IonicModule,
     RouterModule
