@@ -1,0 +1,8 @@
+<label [for]="settings.name">
+  <select [name]="settings.name"
+          [formControl]="settings.formControl"
+          [id]="settings.name">
+    <option [value]="option.value" *ngFor="let option of settings.options">{{option.label}}</option>
+  </select>
+</label>
+<span class="input-error-message" *ngIf="settings.formControl.invalid">{{settings.errorMsg}}</span>

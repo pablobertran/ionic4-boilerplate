@@ -1,0 +1,10 @@
+<label [for]="settings.name">
+  <input class="form-control"
+         [type]="settings.type"
+         [formControl]="settings.formControl"
+         [value]="settings.value"
+         [placeholder]="settings.placeholder"
+         [name]="settings.name" />
+  <i *ngIf="settings.type === 'password'" (click)="togglePassword()">Eye</i>
+</label>
+<span class="input-error-message" *ngIf="settings.formControl.invalid">{{settings.errorMsg}}</span>

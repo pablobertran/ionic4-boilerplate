@@ -21,6 +21,12 @@ export function reducer(state = initialState, action: Action): AuthState {
         errorMessage: null
       }
     }
+    case AuthActionTypes.FORGOT_PASSWORD_SUCCESS:
+    case AuthActionTypes.LOGOUT_SUCCESS: {
+      return {
+        ...initialState
+      }
+    }
     default: {
       return state;
     }

@@ -1,0 +1,8 @@
+<label [for]="settings.name">
+  <input class="form-control"
+         type="checkbox"
+         [formControl]="settings.formControl"
+         [value]="settings.value"
+         [name]="settings.name" />
+</label>
+<span class="input-error-message" *ngIf="settings.formControl.invalid">{{settings.errorMsg}}</span>

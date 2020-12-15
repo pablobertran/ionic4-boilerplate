@@ -10,12 +10,15 @@ import 'rxjs/add/operator/catch';
 import {catchError, map, switchMap} from 'rxjs/operators';
 import {
   AuthActionTypes,
-  Login,
-  LoginError,
-  LoginSuccess,
-  Logout,
-  LogoutError,
-  LogoutSuccess
+  ForgotPasswordAction,
+  ForgotPasswordErrorAction,
+  ForgotPasswordSuccessAction,
+  LoginAction,
+  LoginErrorAction,
+  LoginSuccessAction,
+  LogoutAction,
+  LogoutErrorAction,
+  LogoutSuccessAction
 } from "../actions/auth.actions";
 
 
@@ -30,18 +33,18 @@ export class AuthEffects {
   Login: Observable<any> = this.actions$
     .pipe(
       ofType(AuthActionTypes.LOGIN),
-      map((action: Login) => action.payload),
+      map((action: LoginAction) => action.payload),
       switchMap(payload => {
         return this.authService.login(payload.email, payload.password)
           .pipe(
             map(
               (user: any) => {
-                return new LoginSuccess({token: user.token, email: payload.email});
+                return new LoginSuccessAction(user);
               }
             ),
             catchError(
               error => {
-                return of(new LoginError(error));
+                return of(new LoginErrorAction(error));
               }
             )
           );
@@ -52,17 +55,37 @@ export class AuthEffects {
   Logout: Observable<any> = this.actions$
     .pipe(
       ofType(AuthActionTypes.LOGOUT),
-      map((action: Logout) => action.payload),
+      map((action: LogoutAction) => action.payload),
       switchMap(payload => {
         return this.authService.logout()
           .pipe(
             map(
               (response: any) => {
-                return new LogoutSuccess();
+                return new LogoutSuccessAction(response);
               }
             ),
             catchError(error => {
-              return of(new LogoutError({error}));
+              return of(new LogoutErrorAction({error}));
+            })
+          )
+      })
+    )
+
+  @Effect()
+  RequestPassword: Observable<any> = this.actions$
+    .pipe(
+      ofType(AuthActionTypes.FORGOT_PASSWORD),
+      map((action: ForgotPasswordAction) => action.payload),
+      switchMap(payload => {
+        return this.authService.requestPassword(payload)
+          .pipe(
+            map(
+              (response: boolean) => {
+                return new ForgotPasswordSuccessAction(response);
+              }
+            ),
+            catchError(error => {
+              return of(new ForgotPasswordErrorAction({error}));
             })
           )
       })

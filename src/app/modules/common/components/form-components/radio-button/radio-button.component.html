@@ -1,0 +1,13 @@
+<fieldset>
+  <label>
+    {{settings.label}}
+    <label [for]="option.label" *ngFor="let option of settings.options">
+      <input class="form-control"
+             type="checkbox"
+             [formControl]="settings.formControl"
+             [value]="option.value"
+             [name]="settings.name" />
+    </label>
+  </label>
+</fieldset>
+<span class="input-error-message" *ngIf="settings.formControl.invalid">{{settings.errorMsg}}</span>

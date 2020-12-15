@@ -6,11 +6,15 @@ import {SignUpPageComponent} from "./sign-up/sign-up-page.component";
 import {ForgotPasswordPageComponent} from "./forgot-password/forgot-password-page.component";
 
 const routes: Routes = [
-  {path: '', redirectTo: 'login'},
-  {path: 'login', component: LoginPageComponent, pathMatch: 'full'},
-  {path: 'signup', component: SignUpPageComponent, pathMatch: 'full'},
-  {path: 'password-forgotten', component: ForgotPasswordPageComponent, pathMatch: 'full'},
-]
+  {
+    path: '', component: AuthenticationComponent, children: [
+      {path: '', redirectTo: 'login'},
+      {path: 'login', component: LoginPageComponent, pathMatch: 'full'},
+      {path: 'signup', component: SignUpPageComponent, pathMatch: 'full'},
+      {path: 'password-forgotten', component: ForgotPasswordPageComponent, pathMatch: 'full'},
+    ]
+  }
+];
 
 @NgModule({
   imports: [
@@ -20,4 +24,5 @@ const routes: Routes = [
     RouterModule,
   ]
 })
-export class AuthenticationRoutingModule {}
+export class AuthenticationRoutingModule {
+}
